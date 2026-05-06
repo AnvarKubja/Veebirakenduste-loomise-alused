@@ -1,0 +1,6 @@
+@FullStackReact.Server_HostAddress = http://localhost:5190
+
+GET {{FullStackReact.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
