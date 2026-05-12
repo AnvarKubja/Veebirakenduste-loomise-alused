@@ -1,14 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FullStackReact.Server.Data;
+using Microsoft.AspNetCore.Mvc;
+using FullStackReact.Server.ViewModel;
 
 namespace FullStackReact.Server.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
     public class PlanetsController : ControllerBase
     {
+        private readonly PlanetContext _context;
+
+        public PlanetsController
+            (
+                PlanetContext context
+            )
+        {
+            _context = context;
+        }
+
         public IActionResult SchoolIndex()
         {
-            return Ok();
+            //muutuja resulti sisse pannakse domaini alt saadud info
+            //mis antakse vaatesse returni juures
+            //lisaks sellele antakse info edasi domaini modelist view modelisse
+            var result = _context.Planets
+                .Select(x => new PlanetsListViewModel
+                {
+                    PlanetsId = x.PlanetsId,
+                    Name = x.Name,
+                    Description = x.Description,
+                    Type = x.Type,
+                    Mass = x.Mass
+                });
+
+
+            return Ok(result);
         }
     }
 }
