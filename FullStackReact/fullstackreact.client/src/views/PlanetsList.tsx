@@ -1,12 +1,12 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { Planets } from "../types/planets";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 function PlanetsList() {
     const [planets, setPlanets] = useState<Planets[]>([]);
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     //loob ühenduse controlleriga, mille nimi on PlanetsController
     const fetchPlanets = useCallback(async () => {
@@ -21,6 +21,10 @@ function PlanetsList() {
         }
     }, []);
 
+    const openCreate = () => {
+        navigate("/planets/create")
+    }
+
     useEffect(() => {
 
         (async () => {
@@ -29,8 +33,25 @@ function PlanetsList() {
     }, [fetchPlanets]);
 
     return (
-        <div className="container">
-            <h1>Planet List</h1>
+        <div className="page-card">
+            <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center"
+            }}>
+                <h1 style={{ margin: 0 }}>Planets List</h1>
+                <button type="button" className="success" onClick={openCreate}>
+                    + Create
+                </button>
+            </div>
+
+            {!loading && !error && (
+                <table border={1} cellPadding={8} style={{
+                    width: "100%",
+                    borderCollapse: "collapse",
+                    marginTop: 16
+                }}>
+            )}
             <table>
                 <thead>
                     <tr>
@@ -58,7 +79,7 @@ function PlanetsList() {
                     )}
                 </tbody>
             </table>
-        </div>
+        </>
 
   );
 }
