@@ -47,10 +47,16 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/weatherforecast': {
+            '^/planets': {
                 target,
                 secure: false
-            }
+            },
+            //kui tahad backendiga suhelda, 
+            //siis kõik requestid, mis algavad /api, suunatakse backendile
+            '^/api': {
+                target,
+                secure: false
+            },
         },
         port: parseInt(env.DEV_SERVER_PORT || '51870'),
         https: {

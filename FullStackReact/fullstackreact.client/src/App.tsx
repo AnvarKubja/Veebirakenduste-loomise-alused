@@ -1,5 +1,6 @@
 import './App.css';
 import PlanetsList from './views/PlanetsList';
+import PlanetsCreate from './views/PlanetsCreate'
 import { Routes, Route, Navigate } from "react-router-dom"
 
 export default function App() {
@@ -7,6 +8,7 @@ export default function App() {
         <Routes>
             <Route path="/" element={<Navigate to="/planets" replace />} />
             <Route path="/planets" element={<PlanetsList />} />
+            <Route path="/planets/create" element={<PlanetsCreate />} />
         </Routes>
     );
 }
